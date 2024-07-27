@@ -1,0 +1,28 @@
+--how to run--
+From terminal/cmd on path project
+
+--install pipenv--
+pip install pipenv
+pipenv install
+
+--run this project on env--
+pipenv shell
+python app.py
+
+--stop this project on env--
+exit
+
+--install this module--
+pip install Flask
+pip install flask-restx
+pip install flask-sqlalchemy
+pip install jwt
+pip install Flask-Cors
+pip install Flask-SocketIO
+pip install opencv-python
+pip install mediapipe
+pip install tensorflow
+pip install joblib
+pip install mysqlclient
+pip install Flask-Mail
+pip install mailtrap
