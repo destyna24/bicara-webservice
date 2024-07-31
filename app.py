@@ -827,7 +827,30 @@ class EditPassword_Route(Resource):
         return {
             'user_id' : getUser.id,
         }, 200
-    
+
+# Check pass lama
+parser4CheckPass = reqparse.RequestParser()
+parser4CheckPass.add_argument('user_id', type=str, location='args', required=True, help='Masukkan User Id')
+parser4CheckPass.add_argument('check_pass', type=str, location='args', required=True, help='Masukkan Password Lama')
+
+@api.route('/check_pass')
+class CheckPass(Resource):
+    @api.expect(parser4CheckPass, validate=True)
+    @api.response(200, 'OK')
+    def get(self):
+        args = parser4CheckPass.parse_args()
+        user_id = args['user_id']
+        check_pass = args['check_pass']
+        
+        #check user filter by user_id
+        user = User.query.filter_by(id=user_id).first()
+        # Verify password
+        if not check_password_hash(user.password, check_pass):
+            return {'message': 'Password yang kamu masukkan salah'}, 400
+        return {
+            'message' : 'Berhasil check password lama'
+        }, 200
+
 # API Edit Pass
 parser4EditPassNoAuth = reqparse.RequestParser()
 parser4EditPassNoAuth.add_argument('api-key', type=str, location='headers', required=True, help='Masukkan API-KEY')
